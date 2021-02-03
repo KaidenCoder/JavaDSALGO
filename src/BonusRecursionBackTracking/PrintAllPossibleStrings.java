@@ -9,8 +9,24 @@ public class PrintAllPossibleStrings {
         helperPrint(str1, 0);
     }
 
-    private static void helperPrint(char[] str1, int i) {
+    private static void helperPrint(char[] str, int index) {
+        if(index == str.length){
+            System.out.println(str);
+            return;
+        }
 
+        if(str[index] == '?'){
+            str[index] = '0';
+            helperPrint(str, index+1);
+
+            str[index] = '1';
+            helperPrint(str, index);
+
+            str[index] = '?';
+        }
+        else{
+            helperPrint(str, index+1);
+        }
     }
 
     public static void main(String[] args) {
