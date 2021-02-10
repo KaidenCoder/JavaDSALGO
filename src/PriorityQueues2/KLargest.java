@@ -1,0 +1,75 @@
+package PriorityQueues2;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class KLargest {
+
+    public static ArrayList<Integer> kLargest(int input[], int k) {
+        inplaceHeapSort(input);
+        ArrayList<Integer> res = new ArrayList<>(k);
+        int i = 1;
+        while(i <= k){
+            res.add(input[input.length - i]);
+            i++;
+        }
+        Collections.sort(res);
+        return res;
+    }
+
+    public static void inplaceHeapSort(int arr[]) {
+
+        // Build the heap
+        int n = arr.length;
+        for(int i=(n/2)-1; i>=0; i--){
+            downHeapify(arr,i,n);
+        }
+
+        // Remove elements from starting one by one, and put them at respective last position
+        for(int i = n-1; i >= 0; i--){
+            int temp = arr[i];
+            arr[i] = arr[0];
+            arr[0] = temp;
+            downHeapify(arr, 0, i);
+        }
+
+    }
+
+    private static void downHeapify(int[] arr, int i, int n) {
+        int parentIndex = i;
+        int leftChildIndex = 2*parentIndex+1;
+        int rightChildIndex = 2*parentIndex+2;
+
+        while (leftChildIndex < n){
+            int minChildIndex = parentIndex;
+            if(arr[leftChildIndex] < arr[minChildIndex]){
+                minChildIndex = leftChildIndex;
+            }
+            if(rightChildIndex < n && arr[rightChildIndex] < arr[minChildIndex]){
+                minChildIndex = rightChildIndex;
+            }
+
+            if(minChildIndex == parentIndex){
+                return;
+            }
+
+            int temp = arr[parentIndex];
+            arr[parentIndex] = arr[minChildIndex];
+            arr[minChildIndex] = temp;
+            parentIndex = minChildIndex;
+            leftChildIndex = 2*parentIndex+1;
+            rightChildIndex = 2*parentIndex+2;
+        }
+
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {4,7,3,2,8,9,6,1};
+        int k = 4;
+        ArrayList<Integer> result = kLargest(arr, 4);
+
+        for(int i = 0; i < result.size(); i++){
+            System.out.println(result.get(i));
+        }
+    }
+}
