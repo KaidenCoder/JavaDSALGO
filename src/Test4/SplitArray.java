@@ -23,40 +23,61 @@ public class SplitArray {
          * Return output and don't print it.
          * Taking input and printing output is handled automatically.
          */
-        int arr[] = new int[arr1.length];
-        for(int i = 0; i < arr1.length; i++){
-            if(arr1[i] < 0) {
-                arr[i] = -1 * arr1[i];
-            }else{
-                arr[i] = arr1[i];
-            }
+
+        return check(arr1, 0,0,0);
+
+//        int arr[] = new int[arr1.length];
+//        for(int i = 0; i < arr1.length; i++){
+//            if(arr1[i] < 0) {
+//                arr[i] = -1 * arr1[i];
+//            }else{
+//                arr[i] = arr1[i];
+//            }
+//        }
+//
+//        Arrays.sort(arr);
+//        int sum1 = 0;
+//        int sum2 = 0;
+//
+//        for(int i = arr.length - 1;  i >= 0; i--){
+//            if(arr[i]%5  == 0){
+//                sum1 += arr[i];
+//            }else if(arr[i]%3 == 0 && arr[i]%5 != 0){
+//                sum2 += arr[i];
+//            }
+//        }
+//        for(int i = arr.length - 1;  i >= 0; i--){
+//            if(sum1 <= sum2 && arr[i]%3 != 0 && arr[i]%5 != 0){
+//                sum1 += arr[i];
+//            }else if(sum2 <= sum1 && arr[i]%3 != 0 && arr[i]%5 != 0){
+//                sum2 += arr[i];
+//            }
+//        }
+//
+//        if(sum1 == sum2){
+//            return true;
+//        }else{
+//            return false;
+//        }
+
+
+    }
+
+    private static boolean check(int[] input, int startIndex, int lSum, int rSum) {
+        if(startIndex == input.length){
+            return lSum == rSum;
         }
-
-        Arrays.sort(arr);
-        int sum1 = 0;
-        int sum2 = 0;
-
-        for(int i = arr.length - 1;  i >= 0; i--){
-            if(arr[i]%5  == 0){
-                sum1 += arr[i];
-            }else if(arr[i]%3 == 0 && arr[i]%5 != 0){
-                sum2 += arr[i];
-            }
+        if(input[startIndex]%5 == 0){
+            lSum += input[startIndex];
         }
-        for(int i = arr.length - 1;  i >= 0; i--){
-            if(sum1 <= sum2 && arr[i]%3 != 0 && arr[i]%5 != 0){
-                sum1 += arr[i];
-            }else if(sum2 <= sum1 && arr[i]%3 != 0 && arr[i]%5 != 0){
-                sum2 += arr[i];
-            }
+        else if(input[startIndex]%3 == 0){
+            rSum += input[startIndex];
         }
-
-        if(sum1 == sum2){
-            return true;
-        }else{
-            return false;
+        else{
+            boolean leftAns = check(input, startIndex+1, lSum + input[startIndex], rSum);
+            boolean rightAns = check(input, startIndex+1, lSum, rSum + input[startIndex]);
+            return leftAns || rightAns;
         }
-
-
+        return check(input, startIndex+1, lSum, rSum);
     }
 }

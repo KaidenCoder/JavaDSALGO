@@ -18,6 +18,7 @@ public class QueueCollections {
         q.add(10);
         s.push(10);
         s.push(20);
-        System.out.print(q.peek()+s.pop());
+        System.out.println(q.poll()+s.pop());
+        System.out.println(q);
     }
 }
