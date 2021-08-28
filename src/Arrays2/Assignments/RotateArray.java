@@ -20,7 +20,7 @@ public class RotateArray {
         }
 
         for(int i = 0 ; i < arr.length; i++){
-            System.out.print(newArr[i]);
+            System.out.print(newArr[i]+" ");
         }
     }
 }
